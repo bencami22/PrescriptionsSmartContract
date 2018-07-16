@@ -2,9 +2,9 @@ pragma solidity ^0.4.0;
 import "https://github.com/Arachnid/solidity-stringutils/strings.sol";
 
 contract Prescriptions {
-    using strings for *;
+   using strings for *;
     
-    struct Prescription {
+   struct Prescription {
         address medicalPractitioner;
         address patient;
         
@@ -15,9 +15,30 @@ contract Prescriptions {
         bool dispensed;
         address dispenser;
         uint dateDispensed;
-    }
+   }
+   
+   enum MedicalPractitionerType {PRESCRIBER, DISPENSER}
+   
+   struct MedicalPractitioner
+   {
+       address medicalPractitioner;
+       string licenseNumber;
+       MedicalPractitionerType medicalPractitionerType;
+   }
     
-    Prescription[] internal prescriptions;
+   Prescription[] internal prescriptions;
+   
+   MedicalPractitioner[] internal medicalPractitioners;
+   
+   function addMedicalPractitioner(string licenseNumber, MedicalPractitionerType medicalPractitionerType) public returns (uint)
+   {
+       medicalPractitioners.length++;
+       medicalPractitioners[medicalPractitioners.length-1].medicalPractitioner=msg.sender;
+       medicalPractitioners[medicalPractitioners.length-1].licenseNumber=licenseNumber;
+       medicalPractitioners[medicalPractitioners.length-1].medicalPractitionerType=medicalPractitionerType;
+       
+       return medicalPractitioners.length-1;
+   }
     
    function addPrescription(address patient, string medicationsCSV) public returns(uint) {
 
