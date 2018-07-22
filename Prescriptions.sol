@@ -42,7 +42,7 @@ contract Prescriptions {
         return medicalPractitioners.length - 1;
     }
 
-    event PrescriptionCreated(address medicalPractitioner, address patient, uint dateCreated, string medications);
+    event PrescriptionCreated(uint id, address medicalPractitioner, address patient, uint dateCreated, string medications);
 
     function addPrescription(address patient, string medicationsCSV) public returns(uint) {
 
@@ -59,7 +59,7 @@ contract Prescriptions {
         prescriptions[prescriptions.length - 1].dateCreated = now;
 
         //emit the event to any subscribers
-        emit PrescriptionCreated(prescriptions[prescriptions.length - 1].medicalPractitioner, prescriptions[prescriptions.length - 1].patient, prescriptions[prescriptions.length - 1].dateCreated, medicationsCSV);
+        emit PrescriptionCreated(prescriptions.length - 1, prescriptions[prescriptions.length - 1].medicalPractitioner, prescriptions[prescriptions.length - 1].patient, prescriptions[prescriptions.length - 1].dateCreated, medicationsCSV);
 
         return prescriptions.length - 1;
     }
