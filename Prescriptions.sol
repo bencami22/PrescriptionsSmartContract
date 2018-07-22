@@ -42,7 +42,7 @@ contract Prescriptions {
         return medicalPractitioners.length - 1;
     }
 
-    event PrescriptionCreated(uint id, address medicalPractitioner, address patient, uint dateCreated, string medications);
+    event PrescriptionCreated(uint index, address medicalPractitioner, address patient, uint dateCreated, string medications);
 
     function addPrescription(address patient, string medicationsCSV) public returns(uint) {
 
@@ -67,7 +67,9 @@ contract Prescriptions {
     function getPrescriptionCount() public constant returns(uint) {
         return prescriptions.length;
     }
-
+    
+    event PrescriptionDispensed(uint index, address dispenser, address patient, uint dateDispensed, string medicationsCSV);
+    
     function dispensePrescription(uint index, address patient) public returns(string) {
         //prescriptions.length>index
 
@@ -83,6 +85,7 @@ contract Prescriptions {
             for (uint i = 0; i < prescriptions[index].medications.length; i++) {
                 returnStr = prescriptions[index].medications[i].toSlice().concat(returnStr.toSlice());
             }
+            emit PrescriptionDispensed(index, prescriptions[index].dispenser,patient, prescriptions[index].dateDispensed, returnStr);
         }
         return returnStr;
 
