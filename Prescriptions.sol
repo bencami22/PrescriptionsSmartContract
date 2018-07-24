@@ -25,14 +25,16 @@ contract Prescriptions {
         MedicalPractitionerType medicalPractitionerType;
     }
 
-    mapping (string=>uint) prescriptionReferences;
+    mapping (string => uint) prescriptionReferences;
     Prescription[] internal prescriptions;
 
+    mapping (address => uint) medicalPractitionerMapping;
     MedicalPractitioner[] internal medicalPractitioners;
 
-    constructor() internal{
+    constructor() public {
         //take first entry of array
-        addPrescription("", 0x123, "");
+        prescriptions.length++;
+        medicalPractitioners.length++;
     }
     
     function addMedicalPractitioner(string licenseNumber, MedicalPractitionerType medicalPractitionerType) public returns(uint) {
@@ -40,7 +42,9 @@ contract Prescriptions {
         medicalPractitioners[medicalPractitioners.length - 1].medicalPractitioner = msg.sender;
         medicalPractitioners[medicalPractitioners.length - 1].licenseNumber = licenseNumber;
         medicalPractitioners[medicalPractitioners.length - 1].medicalPractitionerType = medicalPractitionerType;
-
+        
+        medicalPractitionerMapping[msg.sender]=medicalPractitioners.length - 1;
+        
         return medicalPractitioners.length - 1;
     }
 
@@ -50,6 +54,8 @@ contract Prescriptions {
 
         uint index= prescriptionReferences[reference.toSlice().concat(toString(patient).toSlice())];
         if(index != 0) throw; //0 means doesn't exist (index 0 is also taken by default unusuable value in cconstructor)
+        uint medicalPractitionerIndex=medicalPractitionerMapping[msg.sender];
+        if(medicalPractitionerIndex==0) throw; //means the sender address is not a medical practitioner. (index 0 is also taken by default unusuable value in cconstructor)
         
         prescriptions.length++;
         prescriptions[prescriptions.length - 1].patient = patient;
@@ -114,7 +120,7 @@ contract Prescriptions {
         emit PrescriptionDispensed(reference, prescriptions[index].dispenser,patient, prescriptions[index].dateDispensed, medicationsCSV);
     }
     
-    function toString(address x) returns (string) {
+    function toString(address x) internal returns (string) {
         bytes memory b = new bytes(20);
         for (uint i = 0; i < 20; i++)
             b[i] = byte(uint8(uint(x) / (2**(8*(19 - i)))));
