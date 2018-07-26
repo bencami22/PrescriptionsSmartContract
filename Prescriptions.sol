@@ -26,6 +26,7 @@ contract Prescriptions {
     struct MedicalPractitioner {
         address medicalPractitioner;
         string licenseNumber;
+        string fullName;
         MedicalPractitionerType medicalPractitionerType;
         bool approved;
     }
@@ -43,10 +44,11 @@ contract Prescriptions {
         medicalPractitioners.length++;
     }
 
-    function addMedicalPractitioner(string licenseNumber, MedicalPractitionerType medicalPractitionerType) public returns(uint) {
+    function addMedicalPractitioner(string licenseNumber, string fullName, MedicalPractitionerType medicalPractitionerType) public returns(uint) {
         medicalPractitioners.length++;
         medicalPractitioners[medicalPractitioners.length - 1].medicalPractitioner = msg.sender;
         medicalPractitioners[medicalPractitioners.length - 1].licenseNumber = licenseNumber;
+        medicalPractitioners[medicalPractitioners.length - 1].fullName = fullName;
         medicalPractitioners[medicalPractitioners.length - 1].medicalPractitionerType = medicalPractitionerType;
 
         medicalPractitionerMapping[msg.sender] = medicalPractitioners.length - 1;
