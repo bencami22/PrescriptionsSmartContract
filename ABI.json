@@ -1,0 +1,220 @@
+[
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "medicalPractitioner",
+				"type": "address"
+			}
+		],
+		"name": "approveMedicalPractitioner",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getPrescriptionCount",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "reference",
+				"type": "string"
+			},
+			{
+				"name": "patient",
+				"type": "address"
+			}
+		],
+		"name": "dispensePrescription",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "reference",
+				"type": "string"
+			},
+			{
+				"name": "patient",
+				"type": "address"
+			}
+		],
+		"name": "getPrescription",
+		"outputs": [
+			{
+				"name": "medicalPractitioner",
+				"type": "address"
+			},
+			{
+				"name": "dateCreated",
+				"type": "uint256"
+			},
+			{
+				"name": "medications",
+				"type": "string"
+			},
+			{
+				"name": "dispensed",
+				"type": "bool"
+			},
+			{
+				"name": "dispenser",
+				"type": "address"
+			},
+			{
+				"name": "dateDispensed",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "licenseNumber",
+				"type": "string"
+			},
+			{
+				"name": "fullName",
+				"type": "string"
+			},
+			{
+				"name": "medicalPractitionerType",
+				"type": "uint8"
+			}
+		],
+		"name": "addMedicalPractitioner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "reference",
+				"type": "string"
+			},
+			{
+				"name": "patient",
+				"type": "address"
+			},
+			{
+				"name": "medicationsCSV",
+				"type": "string"
+			}
+		],
+		"name": "addPrescription",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "reference",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "medicalPractitioner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "patient",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "dateCreated",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "medications",
+				"type": "string"
+			}
+		],
+		"name": "PrescriptionCreated",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "reference",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "dispenser",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "patient",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "dateDispensed",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "medicationsCSV",
+				"type": "string"
+			}
+		],
+		"name": "PrescriptionDispensed",
+		"type": "event"
+	}
+]
